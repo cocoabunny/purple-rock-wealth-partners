@@ -1,0 +1,26 @@
+
+@import "tailwindcss";
+
+:root {
+  --brand-purple: #80549a;
+  --brand-purple-dark: #39264b;
+  --brand-gold: #d2b650;
+
+  --color-ink-base: #211d25;
+  --color-canvas-base: #faf8f5;
+}
+
+@theme inline {
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-dark: var(--brand-purple-dark);
+  --color-brand-gold: var(--brand-gold);
+  --color-ink: var(--color-ink-base);
+  --color-canvas: var(--color-canvas-base);
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-canvas-base);
+  color: var(--color-ink-base);
+  font-family: Arial, Helvetica, sans-serif;
+}
