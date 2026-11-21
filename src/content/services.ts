@@ -5,453 +5,778 @@ export type Service = {
   shortTitle: string;
   eyebrow: string;
   description: string;
-  introduction: string;
+  introduction: string[];
   challenges: string[];
   solutions: {
     title: string;
     description: string;
   }[];
+  steps: {
+    title: string;
+    description: string;
+  }[];
   outcomes: string[];
+  faqs: {
+    question: string;
+    answer: string;
+  }[];
   relatedServices: string[];
   seoTitle: string;
   seoDescription: string;
 };
 
 export const services: Service[] = [
-  {
-    slug: "growth-strategy",
-    title: "Growth Strategy & Execution",
-    shortTitle: "Growth Strategy",
-    eyebrow: "Business Growth",
-    description:
-      "Strategic planning and implementation for financial advice businesses ready to build scale, strengthen performance and create long-term value.",
-    introduction:
-      "Growth requires more than ambition. For financial advice businesses, sustainable expansion depends on sound commercial decisions, effective operating structures and the ability to act on emerging opportunities. Purple Rock Wealth Partners works with business owners to evaluate their position, establish priorities and develop practical strategies for the next stage of growth.",
-    challenges: [
-      "Identifying opportunities for organic and inorganic growth",
-      "Improving operational capacity while maintaining service quality",
-      "Aligning ownership objectives with commercial priorities",
-      "Evaluating expansion, acquisition and partnership opportunities",
-      "Translating strategic plans into measurable actions"
-    ],
-    solutions: [
-      {
-        title: "Strategic Business Assessment",
-        description:
-          "Review the commercial position, operating model, business capabilities and growth opportunities of an existing financial advice practice."
-      },
-      {
-        title: "Growth Planning",
-        description:
-          "Develop a structured growth direction that considers market positioning, service delivery, business economics and ownership priorities."
-      },
-      {
-        title: "Opportunity Evaluation",
-        description:
-          "Assess potential acquisitions, partnerships and expansion opportunities against business objectives and practical constraints."
-      },
-      {
-        title: "Execution Support",
-        description:
-          "Support the coordination of strategic initiatives, external specialists and commercial relationships as plans move toward implementation."
-      }
-    ],
-    outcomes: [
-      "Greater clarity around growth priorities",
-      "A more structured approach to business expansion",
-      "Better alignment between strategy and execution",
-      "Stronger preparation for future opportunities"
-    ],
-    relatedServices: [
-      "mergers-acquisitions",
-      "strategic-partnerships",
-      "technology-integration"
-    ],
-    seoTitle:
-      "Financial Advice Business Growth Strategy | Purple Rock",
-    seoDescription:
-      "Business growth strategy and execution support for financial advice practices in Melbourne and across Australia."
-  },
-  {
-    slug: "mergers-acquisitions",
-    title: "Mergers & Acquisitions",
-    shortTitle: "Mergers & Acquisitions",
-    eyebrow: "Business Transactions",
-    description:
-      "Strategic support for financial advice business owners considering acquisitions, mergers, divestments and ownership transitions.",
-    introduction:
-      "A business transaction can reshape the future of a financial advice practice. Whether acquiring, merging or preparing to sell, successful outcomes require careful consideration of commercial value, cultural alignment, operational compatibility and transaction structure. Purple Rock helps business owners navigate these decisions and establish connections with relevant counterparties and advisers.",
-    challenges: [
-      "Identifying suitable acquisition or merger opportunities",
-      "Understanding commercial value and transaction expectations",
-      "Assessing compatibility between businesses",
-      "Preparing a practice for a potential sale",
-      "Coordinating the commercial stages of a transaction"
-    ],
-    solutions: [
-      {
-        title: "Acquisition Strategy",
-        description:
-          "Define acquisition objectives and evaluate opportunities in relation to business scale, strategic fit and commercial priorities."
-      },
-      {
-        title: "Vendor Preparation",
-        description:
-          "Help owners identify business considerations that may influence buyer interest, transaction readiness and future value."
-      },
-      {
-        title: "Strategic Introductions",
-        description:
-          "Facilitate relevant commercial connections between prospective buyers, sellers and specialist transaction advisers."
-      },
-      {
-        title: "Transaction Coordination",
-        description:
-          "Assist with commercial discussions and coordination while legal, tax, regulatory and due diligence matters are handled by appropriately qualified professionals."
-      }
-    ],
-    outcomes: [
-      "Improved transaction preparedness",
-      "Clearer acquisition or divestment objectives",
-      "More informed commercial decision-making",
-      "Access to relevant industry connections"
-    ],
-    relatedServices: [
-      "business-valuation",
-      "succession-planning",
-      "funding-capital"
-    ],
-    seoTitle:
-      "Financial Advice Mergers & Acquisitions | Purple Rock",
-    seoDescription:
-      "Strategic merger, acquisition and practice sale support for Australian financial advice business owners."
-  },
-  {
-    slug: "succession-planning",
-    title: "Succession Planning & Implementation",
-    shortTitle: "Succession Planning",
-    eyebrow: "Ownership Transition",
-    description:
-      "Planning and coordinating ownership transitions that protect business continuity and support long-term commercial objectives.",
-    introduction:
-      "A considered succession strategy provides business owners with greater choice about the future. Whether retirement, management succession, an internal buyout or an external sale is being considered, early preparation can help align the interests of owners, successors and stakeholders. Purple Rock supports the development of practical transition pathways for financial advice businesses.",
-    challenges: [
-      "Clarifying the owner's preferred exit or transition pathway",
-      "Preparing successors and leadership structures",
-      "Considering business continuity and client relationships",
-      "Evaluating internal and external ownership options",
-      "Coordinating implementation across stakeholders"
-    ],
-    solutions: [
-      {
-        title: "Succession Readiness Review",
-        description:
-          "Examine ownership objectives, business dependencies and the practical considerations associated with a future transition."
-      },
-      {
-        title: "Transition Strategy",
-        description:
-          "Explore internal succession, staged ownership changes, merger opportunities and external sale pathways."
-      },
-      {
-        title: "Stakeholder Alignment",
-        description:
-          "Help structure discussions between owners, successors and relevant professional advisers."
-      },
-      {
-        title: "Implementation Coordination",
-        description:
-          "Support the staged execution of an agreed transition plan alongside the appropriate legal, financial and regulatory specialists."
-      }
-    ],
-    outcomes: [
-      "Greater clarity around future ownership",
-      "Improved transition preparation",
-      "Reduced dependence on last-minute succession decisions",
-      "A structured pathway toward ownership change"
-    ],
-    relatedServices: [
-      "business-valuation",
-      "mergers-acquisitions",
-      "strategic-partnerships"
-    ],
-    seoTitle:
-      "Financial Advice Succession Planning | Purple Rock",
-    seoDescription:
-      "Succession and ownership transition strategy for financial advice businesses across Melbourne and Australia."
-  },
-  {
-    slug: "funding-capital",
-    title: "Funding & Capital Solutions",
-    shortTitle: "Funding & Capital",
-    eyebrow: "Capital Strategy",
-    description:
-      "Commercial funding strategy and connections to support business acquisition, expansion, restructuring and ownership transitions.",
-    introduction:
-      "Access to appropriate capital can influence when and how a financial advice business pursues new opportunities. Funding decisions should consider cash flow, ownership objectives, commercial structure and long-term obligations. Purple Rock helps businesses evaluate their funding requirements and explore relevant pathways with suitable capital providers and professional advisers.",
-    challenges: [
-      "Establishing funding requirements for acquisitions or expansion",
-      "Comparing potential capital structures",
-      "Preparing commercial information for funding discussions",
-      "Understanding the implications of external investment",
-      "Connecting with suitable funding participants"
-    ],
-    solutions: [
-      {
-        title: "Funding Needs Assessment",
-        description:
-          "Consider the amount, purpose and timing of capital required to support a proposed business initiative."
-      },
-      {
-        title: "Capital Pathway Evaluation",
-        description:
-          "Explore relevant funding approaches and their potential implications for ownership, cash flow and future flexibility."
-      },
-      {
-        title: "Funding Preparation",
-        description:
-          "Assist with organising business information and articulating the commercial rationale for a funding proposal."
-      },
-      {
-        title: "Capital Introductions",
-        description:
-          "Facilitate connections with potentially relevant funding participants, subject to the applicable regulatory and professional requirements."
-      }
-    ],
-    outcomes: [
-      "Clearer understanding of capital requirements",
-      "Better preparation for funding discussions",
-      "Improved alignment between funding and business strategy",
-      "Access to relevant specialist connections"
-    ],
-    relatedServices: [
-      "growth-strategy",
-      "mergers-acquisitions",
-      "business-valuation"
-    ],
-    seoTitle:
-      "Financial Advice Business Funding Strategy | Purple Rock",
-    seoDescription:
-      "Commercial capital and funding strategy support for Australian financial advice businesses pursuing growth and acquisitions."
-  },
-  {
-    slug: "licensing-solutions",
-    title: "Licensing & Structural Solutions",
-    shortTitle: "Licensing Solutions",
-    eyebrow: "Business Structure",
-    description:
-      "Strategic consideration of licensing arrangements, business structures and transitions within Australia's financial advice industry.",
-    introduction:
-      "A financial advice business's licensing and operating arrangements can materially influence its commercial flexibility, costs and growth potential. Whether evaluating an existing licensee relationship, considering self-licensing or planning a structural transition, informed decisions require a clear assessment of business objectives and regulatory obligations.",
-    challenges: [
-      "Assessing the suitability of existing licensee arrangements",
-      "Evaluating the commercial implications of structural change",
-      "Considering self-licensing or alternative licensee models",
-      "Managing business disruption during a transition",
-      "Identifying appropriate compliance and legal specialists"
-    ],
-    solutions: [
-      {
-        title: "Structural Review",
-        description:
-          "Review current business and licensing arrangements in the context of ownership, operating needs and strategic objectives."
-      },
-      {
-        title: "Transition Planning",
-        description:
-          "Consider potential transition pathways, key dependencies and commercial implementation requirements."
-      },
-      {
-        title: "Specialist Coordination",
-        description:
-          "Connect businesses with appropriately qualified licensing, legal and compliance professionals where required."
-      },
-      {
-        title: "Commercial Implementation Support",
-        description:
-          "Assist with the non-regulated commercial aspects of an agreed structural or licensing transition."
-      }
-    ],
-    outcomes: [
-      "Clearer understanding of structural alternatives",
-      "Better alignment between operating arrangements and strategy",
-      "Improved transition planning",
-      "Access to appropriate regulatory specialists"
-    ],
-    relatedServices: [
-      "growth-strategy",
-      "strategic-partnerships",
-      "technology-integration"
-    ],
-    seoTitle:
-      "Financial Advice Licensing & Business Structure | Purple Rock",
-    seoDescription:
-      "Strategic licensing and structural transition support for Australian financial advice businesses."
-  },
-  {
-    slug: "strategic-partnerships",
-    title: "Strategic Partnership Facilitation",
-    shortTitle: "Strategic Partnerships",
-    eyebrow: "Industry Connections",
-    description:
-      "Identifying and developing commercial relationships that complement business capabilities and create opportunities for collaboration.",
-    introduction:
-      "The right commercial relationship can open opportunities that are difficult to pursue independently. For financial advice businesses, partnerships may create pathways to additional expertise, new markets, operating efficiencies or future transactions. Purple Rock brings a relationship-led perspective to evaluating strategic fit and facilitating relevant industry introductions.",
-    challenges: [
-      "Identifying partners with complementary objectives",
-      "Evaluating commercial and cultural alignment",
-      "Defining realistic partnership expectations",
-      "Building relationships with prospective collaborators",
-      "Translating introductions into practical opportunities"
-    ],
-    solutions: [
-      {
-        title: "Partnership Strategy",
-        description:
-          "Identify the capabilities, resources and relationships needed to advance a business's commercial objectives."
-      },
-      {
-        title: "Partner Identification",
-        description:
-          "Explore suitable commercial counterparties based on strategic fit and the nature of the proposed opportunity."
-      },
-      {
-        title: "Relationship Facilitation",
-        description:
-          "Support relevant introductions and preliminary commercial conversations."
-      },
-      {
-        title: "Collaboration Planning",
-        description:
-          "Assist with defining objectives, responsibilities and implementation considerations for potential partnerships."
-      }
-    ],
-    outcomes: [
-      "More purposeful commercial relationships",
-      "Access to complementary business capabilities",
-      "Greater visibility of collaboration opportunities",
-      "A clearer framework for evaluating partnerships"
-    ],
-    relatedServices: [
-      "growth-strategy",
-      "mergers-acquisitions",
-      "licensing-solutions"
-    ],
-    seoTitle:
-      "Strategic Partnerships for Financial Advice | Purple Rock",
-    seoDescription:
-      "Strategic partnership facilitation and industry connections for financial advice businesses in Australia."
-  },
+  // ==========================================================
+  // 01 — BUSINESS VALUATION
+  // ==========================================================
   {
     slug: "business-valuation",
     title: "Business Valuation & Enhancement",
     shortTitle: "Business Valuation",
-    eyebrow: "Enterprise Value",
+    eyebrow: "Understand Enterprise Value",
     description:
-      "Understanding the drivers of financial advice business value and identifying opportunities to strengthen commercial readiness.",
-    introduction:
-      "Business value is shaped by more than revenue alone. Profitability, client concentration, recurring income quality, operational efficiency, management capability and future growth prospects may all influence how a financial advice practice is assessed. Purple Rock helps owners consider these commercial drivers and prepare for discussions about valuation, succession and potential transactions.",
+      "Understand the commercial drivers of financial advice practice value and prepare for a sale, investment or succession decision.",
+    introduction: [
+      "The value of a financial advice practice is shaped by much more than a revenue multiple. Earnings quality, client relationships, operational resilience, leadership depth and the sustainability of future cash flows can all affect a buyer's assessment.",
+      "Purple Rock Wealth Partners works with practice owners to identify the factors influencing commercial value, prioritise improvements and coordinate specialist input when an independent formal valuation is required. Whether a transaction is imminent or several years away, preparation creates more informed choices.",
+    ],
     challenges: [
-      "Understanding the factors influencing business value",
-      "Identifying operational or commercial weaknesses",
-      "Preparing for sale or succession discussions",
-      "Assessing value enhancement opportunities",
-      "Engaging independent valuation and transaction specialists"
+      "Understanding what a potential buyer or investor may value",
+      "Distinguishing recurring income from earnings that may not be sustainable",
+      "Managing reliance on founders or a small number of key advisers",
+      "Preparing accurate financial, client and operational information",
+      "Deciding which improvements to prioritise before a transaction",
     ],
     solutions: [
       {
-        title: "Value Driver Assessment",
+        title: "Commercial Value-Driver Review",
         description:
-          "Examine key commercial characteristics that may influence market interest and business valuation discussions."
+          "Consider revenue composition, profitability, adviser capacity, client concentration, recurring income characteristics and other commercial indicators relevant to transaction readiness.",
       },
       {
-        title: "Business Readiness Review",
+        title: "Business Readiness Assessment",
         description:
-          "Identify business dependencies, operating risks and information gaps that may affect transaction preparation."
+          "Identify information gaps, operational dependencies and issues that could complicate buyer due diligence or ownership transition.",
       },
       {
-        title: "Value Enhancement Planning",
+        title: "Value Enhancement Priorities",
         description:
-          "Develop priorities aimed at strengthening business capability, sustainability and commercial attractiveness."
+          "Develop a practical sequence of improvements in areas such as systems, reporting, governance, leadership continuity and operating efficiency.",
       },
       {
-        title: "Specialist Valuation Coordination",
+        title: "Independent Valuation Coordination",
         description:
-          "Facilitate engagement with appropriately qualified independent valuation professionals when a formal valuation is required."
-      }
+          "Help engage suitable independent valuation, accounting, legal and transaction specialists where a formal opinion or transaction process requires them.",
+      },
+    ],
+    steps: [
+      {
+        title: "Clarify the Purpose",
+        description:
+          "Define whether the assessment supports a sale, acquisition, equity investment, succession or longer-term planning.",
+      },
+      {
+        title: "Review Key Drivers",
+        description:
+          "Examine the business characteristics and information most likely to influence its commercial attractiveness.",
+      },
+      {
+        title: "Prioritise Action",
+        description:
+          "Agree practical opportunities to improve preparedness and involve qualified specialists as needed.",
+      },
     ],
     outcomes: [
-      "Better understanding of business value drivers",
-      "More informed ownership decisions",
-      "Improved preparation for external valuation",
-      "Clearer priorities for commercial improvement"
+      "A clearer understanding of value drivers",
+      "Greater readiness for valuation and due diligence",
+      "A prioritised commercial improvement plan",
+      "More informed ownership and transaction discussions",
+    ],
+    faqs: [
+      {
+        question:
+          "Does Purple Rock provide an independent formal valuation?",
+        answer:
+          "The consultancy can support commercial preparation and facilitate engagement with qualified independent valuers. The need for a formal report and who issues it depend on the transaction and professional requirements.",
+      },
+      {
+        question: "When should an owner start preparing?",
+        answer:
+          "Ideally before an imminent sale or transition. Early planning allows time to address operational dependencies, improve records and evaluate alternatives without transaction pressure.",
+      },
+      {
+        question: "Is revenue the main determinant of practice value?",
+        answer:
+          "Revenue is relevant, but earnings quality, cost structure, client characteristics, adviser retention and future risks may materially influence buyer assessments.",
+      },
     ],
     relatedServices: [
-      "succession-planning",
       "mergers-acquisitions",
-      "growth-strategy"
+      "succession-planning",
+      "growth-strategy",
     ],
-    seoTitle:
-      "Financial Advice Business Valuation Strategy | Purple Rock",
+    seoTitle: "Financial Advice Business Valuation & Enhancement",
     seoDescription:
-      "Business value assessment and valuation preparation for financial advice practices in Melbourne and across Australia."
+      "Commercial value-driver assessment, valuation preparation and business enhancement strategy for financial advice practice owners across Australia.",
   },
+
+  // ==========================================================
+  // 02 — FUNDING & CAPITAL
+  // ==========================================================
+  {
+    slug: "funding-capital",
+    title: "Funding & Capital Solutions",
+    shortTitle: "Funding & Capital",
+    eyebrow: "Capital for the Next Stage",
+    description:
+      "Explore capital pathways for acquisitions, succession, expansion and strategic ownership arrangements in financial advice.",
+    introduction: [
+      "Access to capital often determines whether a promising business opportunity can proceed. For independent financial advice and accounting practices, the right funding structure must fit the transaction, the owner's objectives and the long-term economics of the business.",
+      "Drawing on Peter Purpura's experience across funds management, capital markets and financial advice, Purple Rock helps practice owners articulate their funding requirements, evaluate strategic options and connect with relevant institutional and specialist counterparties. Minority equity partnerships and succession funding may be among the structures explored, subject to suitability and relevant professional advice.",
+    ],
+    challenges: [
+      "Funding an acquisition without overextending operating cash flow",
+      "Balancing capital access with desired ownership and control",
+      "Comparing potential debt, equity and partnership structures",
+      "Preparing credible financial information for capital discussions",
+      "Coordinating investors, funding providers and specialist advisers",
+    ],
+    solutions: [
+      {
+        title: "Capital Requirements & Strategy",
+        description:
+          "Define the purpose, timing and anticipated scale of funding, alongside ownership preferences and implementation constraints.",
+      },
+      {
+        title: "Funding Pathway Evaluation",
+        description:
+          "Consider commercial implications of potential funding and partnership structures, including servicing requirements, dilution and governance considerations.",
+      },
+      {
+        title: "Investment & Lender Introductions",
+        description:
+          "Facilitate potentially relevant introductions through industry and institutional relationships where appropriate and permitted.",
+      },
+      {
+        title: "Transaction Preparation",
+        description:
+          "Help assemble the commercial narrative, financial information and specialist participants needed for informed funding discussions.",
+      },
+    ],
+    steps: [
+      {
+        title: "Define the Need",
+        description:
+          "Establish what the capital will fund and what the owner wishes to retain or change.",
+      },
+      {
+        title: "Evaluate Structures",
+        description:
+          "Compare potential commercial pathways and their implications with the relevant professional advisers.",
+      },
+      {
+        title: "Connect & Coordinate",
+        description:
+          "Engage appropriate counterparties and support next-stage discussion and implementation.",
+      },
+    ],
+    outcomes: [
+      "A clearly articulated funding objective",
+      "Greater awareness of structural trade-offs",
+      "Better-prepared capital discussions",
+      "Connections with relevant financial and transaction specialists",
+    ],
+    faqs: [
+      {
+        question: "Can a minority equity partnership help fund growth?",
+        answer:
+          "It can be one option for some businesses. The commercial terms, investor rights, ownership percentages and regulatory implications must be assessed for the particular circumstances.",
+      },
+      {
+        question: "Will the owner retain operational control?",
+        answer:
+          "Control depends on the negotiated funding and governance documents. Retaining operational control may be an objective, but it cannot be assumed for every transaction.",
+      },
+      {
+        question: "Does Purple Rock guarantee funding?",
+        answer:
+          "No. Funding availability, eligibility, terms and approvals are determined by the relevant capital provider and the circumstances of the transaction.",
+      },
+    ],
+    relatedServices: [
+      "mergers-acquisitions",
+      "succession-planning",
+      "strategic-partnerships",
+    ],
+    seoTitle: "Funding & Capital Solutions for Advice Businesses",
+    seoDescription:
+      "Explore acquisition funding, succession capital and strategic equity partnerships for Australian financial advice and accounting practices.",
+  },
+
+  // ==========================================================
+  // 03 — GROWTH STRATEGY
+  // ==========================================================
+  {
+    slug: "growth-strategy",
+    title: "Growth Strategy & Execution",
+    shortTitle: "Growth Strategy",
+    eyebrow: "Build a Stronger Business",
+    description:
+      "Plan sustainable growth through disciplined commercial strategy, stronger operating capability and targeted opportunities.",
+    introduction: [
+      "Growth is not simply an increase in client numbers or revenue. For an advice business, it must be supported by a service model, leadership capacity and economics capable of sustaining the next stage of development.",
+      "Purple Rock helps practice owners examine their strategic position, distinguish attractive opportunities from distractions and align growth priorities with available resources. The focus may be organic expansion, a complementary acquisition, a new partnership or improvements to an existing operating model.",
+    ],
+    challenges: [
+      "Choosing between organic growth and acquisition-led expansion",
+      "Protecting advice quality as client and adviser numbers increase",
+      "Understanding the cost and capacity implications of scaling",
+      "Prioritising growth opportunities against ownership objectives",
+      "Turning strategic intentions into coordinated action",
+    ],
+    solutions: [
+      {
+        title: "Strategic Position Review",
+        description:
+          "Assess current strengths, commercial constraints, market position and opportunities with reference to the owner's ambitions.",
+      },
+      {
+        title: "Growth Options & Prioritisation",
+        description:
+          "Evaluate potential avenues such as improved operating performance, partnerships, recruitment, geographic expansion and acquisitions.",
+      },
+      {
+        title: "Acquisition & Capital Alignment",
+        description:
+          "Consider how a proposed growth plan intersects with funding, integration and long-term ownership considerations.",
+      },
+      {
+        title: "Execution Coordination",
+        description:
+          "Translate agreed priorities into practical workstreams and connect with external specialists where required.",
+      },
+    ],
+    steps: [
+      {
+        title: "Establish the Ambition",
+        description:
+          "Define success in terms of business quality, enterprise value, revenue, client outcomes or ownership flexibility.",
+      },
+      {
+        title: "Test the Pathways",
+        description:
+          "Evaluate financial, operational and people implications before committing resources.",
+      },
+      {
+        title: "Plan Execution",
+        description:
+          "Set priorities, decisions and measurable review points for the chosen pathway.",
+      },
+    ],
+    outcomes: [
+      "A defined growth direction",
+      "Better alignment between ambition and operating capability",
+      "A prioritised action plan",
+      "Greater preparedness for partnerships or acquisitions",
+    ],
+    faqs: [
+      {
+        question:
+          "Is growth strategy only for businesses looking to acquire?",
+        answer:
+          "No. Growth may involve improving the existing practice, developing leadership, strengthening referral relationships or building capacity before pursuing acquisitions.",
+      },
+      {
+        question:
+          "How do we decide whether to acquire or grow organically?",
+        answer:
+          "That decision depends on commercial fit, funding, integration capability, valuation expectations and the owner's long-term objectives.",
+      },
+      {
+        question: "Does the strategy include implementation?",
+        answer:
+          "Purple Rock can assist with commercial planning and coordination. The specific implementation scope and any specialist roles would be agreed for the engagement.",
+      },
+    ],
+    relatedServices: [
+      "mergers-acquisitions",
+      "technology-integration",
+      "strategic-partnerships",
+    ],
+    seoTitle: "Growth Strategy for Financial Advice Practices",
+    seoDescription:
+      "Practical financial advice business growth strategy, acquisition evaluation and execution support for practice owners in Melbourne and across Australia.",
+  },
+
+  // ==========================================================
+  // 04 — LICENSING SOLUTIONS
+  // ==========================================================
+  {
+    slug: "licensing-solutions",
+    title: "Licensing & Structural Solutions",
+    shortTitle: "Licensing Solutions",
+    eyebrow: "Align Structure with Strategy",
+    description:
+      "Evaluate licensing relationships and business structures in the context of growth, independence and ownership objectives.",
+    introduction: [
+      "Licensing arrangements shape how an advice business operates, what it can deliver and the obligations and costs it must manage. A change in licensee, a potential move toward self-licensing or a broader ownership restructure can have significant commercial and regulatory consequences.",
+      "Purple Rock supports the strategic and commercial assessment of possible pathways. Legal, AFSL, compliance and other regulated matters must be considered with appropriately qualified and authorised specialists; a commercial strategy does not replace those requirements.",
+    ],
+    challenges: [
+      "Assessing whether the current licensee relationship supports future growth",
+      "Understanding the operating requirements of alternative models",
+      "Coordinating a potential licensee transition with minimal disruption",
+      "Evaluating cost, governance and technology implications",
+      "Ensuring specialist regulatory advice is part of the process",
+    ],
+    solutions: [
+      {
+        title: "Commercial Structure Review",
+        description:
+          "Examine current operating and licensing relationships against business objectives, costs, capacity and growth plans.",
+      },
+      {
+        title: "Alternative Model Assessment",
+        description:
+          "Consider commercial differences between remaining with an existing licensee, transitioning to another arrangement or exploring self-licensing.",
+      },
+      {
+        title: "Transition Planning",
+        description:
+          "Identify workstreams and dependencies affecting operations, technology, staff, client communications and timing.",
+      },
+      {
+        title: "Specialist Introductions & Coordination",
+        description:
+          "Help connect the business with appropriate licensing, legal, regulatory and compliance professionals to assess and execute any required steps.",
+      },
+    ],
+    steps: [
+      {
+        title: "Clarify Objectives",
+        description:
+          "Understand the operational flexibility, cost, service and ownership goals driving the review.",
+      },
+      {
+        title: "Compare Options",
+        description:
+          "Evaluate commercial implications with specialist input on licensing and compliance.",
+      },
+      {
+        title: "Prepare Transition",
+        description:
+          "Coordinate a practical sequence of activities if a change is agreed and approved.",
+      },
+    ],
+    outcomes: [
+      "Greater clarity around licensing alternatives",
+      "A commercial rationale for structural decisions",
+      "Better awareness of transition dependencies",
+      "Connections with appropriate licensed and compliance specialists",
+    ],
+    faqs: [
+      {
+        question: "Does Purple Rock issue or arrange an AFSL?",
+        answer:
+          "This page describes strategic and commercial support, not an offer to issue an AFSL or provide legal or regulatory approvals. Licensing matters require the relevant authorised specialists and regulatory processes.",
+      },
+      {
+        question: "Is self-licensing suitable for every practice?",
+        answer:
+          "No. Its suitability depends on the business model, resources, governance capability, ongoing compliance obligations and specialist advice.",
+      },
+      {
+        question:
+          "Can we review our options without committing to a transition?",
+        answer:
+          "Yes. An options review can help clarify costs, dependencies and commercial considerations before an owner makes a decision.",
+      },
+    ],
+    relatedServices: [
+      "growth-strategy",
+      "technology-integration",
+      "strategic-partnerships",
+    ],
+    seoTitle: "Licensing & Structural Solutions for Advice Practices",
+    seoDescription:
+      "Commercial licensing options, licensee transition planning and structural strategy for Australian financial advice businesses.",
+  },
+
+  // ==========================================================
+  // 05 — MERGERS & ACQUISITIONS
+  // ==========================================================
+  {
+    slug: "mergers-acquisitions",
+    title: "Mergers & Acquisitions",
+    shortTitle: "Mergers & Acquisitions",
+    eyebrow: "Navigate the Next Transaction",
+    description:
+      "Commercial strategy and industry connections for buyers, sellers and financial advice practices considering a merger.",
+    introduction: [
+      "Acquiring, merging or selling a financial advice business involves decisions that extend well beyond an agreed price. Client continuity, adviser retention, recurring earnings, culture, licensing arrangements and integration capabilities can all affect the outcome.",
+      "Purple Rock works with practice owners to clarify transaction objectives, consider potential counterparties and coordinate the commercial work needed to evaluate an opportunity. Specialist legal, accounting, tax, valuation and regulatory advice remain essential to transaction execution.",
+    ],
+    challenges: [
+      "Finding opportunities that fit the buyer's strategic objectives",
+      "Preparing the business and its information for purchaser review",
+      "Assessing earnings, valuation expectations and transaction structure",
+      "Understanding staff, client and cultural integration risks",
+      "Coordinating several professional and commercial parties",
+    ],
+    solutions: [
+      {
+        title: "Buy-Side Strategy",
+        description:
+          "Define acquisition criteria, target characteristics, business fit and readiness to integrate.",
+      },
+      {
+        title: "Sell-Side Preparation",
+        description:
+          "Consider ownership objectives, timing, operating dependencies, commercial information and presentation to potential counterparties.",
+      },
+      {
+        title: "Counterparty Connections",
+        description:
+          "Facilitate relevant introductions where strategic alignment and permissions allow.",
+      },
+      {
+        title: "Commercial Transaction Support",
+        description:
+          "Assist with evaluation, discussion and coordination, with suitably qualified professionals handling legal documents, regulated advice and specialist due diligence.",
+      },
+    ],
+    steps: [
+      {
+        title: "Set Transaction Objectives",
+        description:
+          "Determine preferred outcomes, timing, constraints and decision criteria.",
+      },
+      {
+        title: "Assess Fit & Readiness",
+        description:
+          "Review strategic compatibility, information needs and material commercial risks.",
+      },
+      {
+        title: "Coordinate Next Steps",
+        description:
+          "Engage counterparties and specialist advisers to progress an appropriately structured process.",
+      },
+    ],
+    outcomes: [
+      "Clear acquisition or exit criteria",
+      "Better preparation for commercial discussions",
+      "More structured counterparty evaluation",
+      "Improved coordination across transaction workstreams",
+    ],
+    faqs: [
+      {
+        question: "Can Purple Rock help both buyers and sellers?",
+        answer:
+          "The consultancy can discuss buy-side and sell-side strategic support, subject to appropriate engagement scope, confidentiality and conflict-of-interest arrangements.",
+      },
+      {
+        question: "What should be assessed beyond the price?",
+        answer:
+          "Common issues include client and staff continuity, earnings durability, cultural fit, licensing, technology, integration costs and negotiated terms.",
+      },
+      {
+        question: "Who handles contracts and due diligence?",
+        answer:
+          "Qualified legal, accounting, tax, compliance and other specialist advisers should undertake their respective professional work.",
+      },
+    ],
+    relatedServices: [
+      "business-valuation",
+      "funding-capital",
+      "succession-planning",
+    ],
+    seoTitle: "Mergers & Acquisitions for Financial Advice Practices",
+    seoDescription:
+      "Strategic acquisition, merger and sale preparation for Australian financial advice businesses, including commercial evaluation and transaction coordination.",
+  },
+
+  // ==========================================================
+  // 06 — STRATEGIC PARTNERSHIPS
+  // ==========================================================
+  {
+    slug: "strategic-partnerships",
+    title: "Strategic Partnership Facilitation",
+    shortTitle: "Strategic Partnerships",
+    eyebrow: "Rock Solid Connections",
+    description:
+      "Explore complementary industry, capital and commercial relationships designed around the business owner's strategic priorities.",
+    introduction: [
+      "The right partnership can create access to expertise, capital, distribution or capability without requiring every opportunity to be pursued alone. For financial advice and accounting practices, successful collaboration depends on compatible expectations, appropriate governance and a clear commercial purpose.",
+      "Purple Rock combines practical advice-industry insight with institutional and specialist relationships to help identify potential strategic partners and structure productive early-stage discussions. Minority equity participation may be explored where it aligns with the owner's objectives and the relevant parties' requirements.",
+    ],
+    challenges: [
+      "Identifying partners whose objectives and capabilities complement the practice",
+      "Balancing access to resources with independence and control",
+      "Evaluating commercial, cultural and governance alignment",
+      "Turning introductions into well-defined opportunities",
+      "Managing confidentiality, conflicts and stakeholder expectations",
+    ],
+    solutions: [
+      {
+        title: "Partnership Objectives",
+        description:
+          "Clarify the desired capabilities, capital, relationships or strategic outcomes before approaching potential counterparties.",
+      },
+      {
+        title: "Strategic Partner Identification",
+        description:
+          "Explore candidates against commercial fit, reputation, capacity and shared objectives.",
+      },
+      {
+        title: "Introductions & Early Conversations",
+        description:
+          "Facilitate relevant connections and help clarify the opportunity for both sides.",
+      },
+      {
+        title: "Collaboration Planning",
+        description:
+          "Support discussion of commercial principles, responsibilities, governance, milestones and required professional advice.",
+      },
+    ],
+    steps: [
+      {
+        title: "Define Strategic Fit",
+        description:
+          "Identify precisely what a partnership needs to achieve.",
+      },
+      {
+        title: "Explore the Network",
+        description:
+          "Assess potentially relevant counterparties and the basis for a discussion.",
+      },
+      {
+        title: "Develop the Opportunity",
+        description:
+          "Clarify expectations and progress through appropriate commercial and professional processes.",
+      },
+    ],
+    outcomes: [
+      "A clearer partnership proposition",
+      "Access to relevant commercial conversations",
+      "More structured partner comparison",
+      "Better alignment of expectations before commitment",
+    ],
+    faqs: [
+      {
+        question: "Must a partnership involve selling equity?",
+        answer:
+          "No. Partnerships can take different commercial forms. Equity investment is only one possibility and should be evaluated against the owner's preferences and relevant requirements.",
+      },
+      {
+        question: "Can an owner keep running their practice?",
+        answer:
+          "Operational arrangements depend on negotiated terms. Preserving independence or control can be an objective but must be confirmed in the final agreement.",
+      },
+      {
+        question: "Are introductions guaranteed?",
+        answer:
+          "No. Any introduction depends on strategic relevance, availability, agreement of the parties and appropriate confidentiality and compliance considerations.",
+      },
+    ],
+    relatedServices: [
+      "funding-capital",
+      "growth-strategy",
+      "mergers-acquisitions",
+    ],
+    seoTitle: "Strategic Partnerships for Advice Businesses",
+    seoDescription:
+      "Commercial partner identification, institutional connections and strategic relationship facilitation for financial advice and accounting practice owners.",
+  },
+
+  // ==========================================================
+  // 07 — SUCCESSION PLANNING
+  // ==========================================================
+  {
+    slug: "succession-planning",
+    title: "Succession Planning & Implementation",
+    shortTitle: "Succession Planning",
+    eyebrow: "Prepare for What Comes Next",
+    description:
+      "Develop a deliberate approach to ownership transition, leadership continuity and funding a practice succession.",
+    introduction: [
+      "For many financial advice business owners, succession is both a commercial and personal milestone. Timing, business valuation, client continuity and the interests of successors all matter. An early strategy provides more scope to choose how and when ownership changes.",
+      "Purple Rock works with owners to examine internal and external pathways, including staged transitions, minority equity arrangements and succession funding opportunities. The objective is to build a commercially coherent transition plan that reflects the owner's goals while recognising the needs of the business and its stakeholders.",
+    ],
+    challenges: [
+      "Translating an owner's exit ambitions into a realistic timetable",
+      "Developing future leaders or assessing external successors",
+      "Determining how an ownership change might be funded",
+      "Protecting client relationships and operational continuity",
+      "Addressing valuation, governance and regulatory dependencies",
+    ],
+    solutions: [
+      {
+        title: "Succession Readiness",
+        description:
+          "Review ownership priorities, founder dependencies, leadership capacity and the practical conditions for transition.",
+      },
+      {
+        title: "Pathway Evaluation",
+        description:
+          "Compare internal buyouts, staged equity changes, merger possibilities and external sale alternatives.",
+      },
+      {
+        title: "Capital & Ownership Options",
+        description:
+          "Explore potential funding and strategic equity structures consistent with commercial goals, subject to the relevant specialist advice.",
+      },
+      {
+        title: "Transition Coordination",
+        description:
+          "Support planning across stakeholders, implementation workstreams and professional advisers.",
+      },
+    ],
+    steps: [
+      {
+        title: "Understand the Owner's Goals",
+        description:
+          "Clarify timing, desired involvement, financial priorities and preferred successor profile.",
+      },
+      {
+        title: "Evaluate Pathways",
+        description:
+          "Consider readiness, funding, ownership structure and continuity implications.",
+      },
+      {
+        title: "Plan the Transition",
+        description:
+          "Set out practical milestones and engage necessary legal, tax, regulatory and transaction specialists.",
+      },
+    ],
+    outcomes: [
+      "Clearer transition objectives",
+      "Better preparedness for ownership change",
+      "A coordinated succession pathway",
+      "Greater visibility of funding and stakeholder dependencies",
+    ],
+    faqs: [
+      {
+        question: "Is succession planning only relevant near retirement?",
+        answer:
+          "No. Early preparation can strengthen leadership continuity, improve optionality and reduce pressure when personal or commercial circumstances change.",
+      },
+      {
+        question: "Can succession be staged over time?",
+        answer:
+          "In some circumstances, staged ownership and management transitions may be possible. The feasibility and terms depend on the parties, funding and relevant professional advice.",
+      },
+      {
+        question:
+          "What if there is no identified internal successor?",
+        answer:
+          "A strategic review can consider external buyers, mergers and other ownership pathways alongside improvements to business readiness.",
+      },
+    ],
+    relatedServices: [
+      "business-valuation",
+      "funding-capital",
+      "mergers-acquisitions",
+    ],
+    seoTitle: "Succession Planning for Financial Advice Practices",
+    seoDescription:
+      "Succession funding, staged ownership transition and business continuity planning for Australian financial advice practice owners.",
+  },
+
+  // ==========================================================
+  // 08 — TECHNOLOGY INTEGRATION
+  // ==========================================================
   {
     slug: "technology-integration",
     title: "Strategic Technology Integration",
     shortTitle: "Technology Integration",
-    eyebrow: "Operational Capability",
+    eyebrow: "Technology with Commercial Purpose",
     description:
-      "Aligning technology decisions with business growth, operating efficiency and the evolving needs of financial advice practices.",
-    introduction:
-      "Technology can enable a more scalable and resilient advice business, but new systems only create value when they support clear commercial and operational objectives. Purple Rock helps business owners consider technology requirements, integration priorities and implementation pathways within their broader business strategy.",
+      "Align systems, data and technology investment with business performance, integration readiness and future growth.",
+    introduction: [
+      "Technology is only valuable when it improves how a business operates. For financial advice practices, disconnected systems, inconsistent data and manual workflows can limit scalability and complicate acquisitions or structural change.",
+      "Purple Rock takes a business-first view of technology. The focus is on identifying operational priorities, assessing integration requirements and coordinating specialist providers where technology needs to support a larger strategic initiative. The consultancy's role is strategic and commercial, not a substitute for technical security, regulatory or implementation specialists.",
+    ],
     challenges: [
-      "Identifying technology limitations within current operations",
-      "Aligning systems investment with business objectives",
-      "Considering integration following acquisitions or mergers",
-      "Improving data accessibility and operational consistency",
-      "Coordinating technology vendors and implementation stakeholders"
+      "Disconnected client, advice, workflow and reporting systems",
+      "Limited visibility of operational performance and information quality",
+      "Technology integration following a merger or acquisition",
+      "Unclear business cases for new systems and automation",
+      "Managing change across advisers, support staff and vendors",
     ],
     solutions: [
       {
-        title: "Technology Strategy Review",
+        title: "Operational Technology Review",
         description:
-          "Consider existing capabilities and system limitations in relation to business objectives and operating requirements."
+          "Identify system constraints, duplicated processes and information-flow issues affecting business objectives.",
+      },
+      {
+        title: "Investment Prioritisation",
+        description:
+          "Compare initiatives according to commercial value, implementation complexity and organisational readiness.",
       },
       {
         title: "Integration Planning",
         description:
-          "Develop priorities for connecting business systems, improving information flows and reducing operational duplication."
+          "Outline key system, data and operational dependencies arising from acquisitions, expansion or restructuring.",
       },
       {
-        title: "Vendor and Specialist Coordination",
+        title: "Specialist Provider Coordination",
         description:
-          "Facilitate engagement with relevant technology providers and implementation professionals."
+          "Connect relevant implementation, security, compliance and technology specialists to the defined business requirements.",
+      },
+    ],
+    steps: [
+      {
+        title: "Map Current Capabilities",
+        description:
+          "Understand workflows, platforms, data dependencies and pain points.",
       },
       {
-        title: "Change and Implementation Support",
+        title: "Define the Target State",
         description:
-          "Help align technology initiatives with business processes, stakeholder expectations and commercial outcomes."
-      }
+          "Prioritise outcomes and review commercial, regulatory and change-management requirements.",
+      },
+      {
+        title: "Coordinate Delivery",
+        description:
+          "Sequence improvements and work with qualified implementation providers as appropriate.",
+      },
     ],
     outcomes: [
-      "Clearer technology investment priorities",
-      "Better alignment between systems and strategy",
-      "Improved preparation for business integration",
-      "More coordinated technology implementation"
+      "Clearer priorities for technology investment",
+      "Improved visibility of integration risks",
+      "Better alignment between systems and business strategy",
+      "A practical framework for vendor engagement and change",
+    ],
+    faqs: [
+      {
+        question: "Does Purple Rock build or implement software?",
+        answer:
+          "The service is described as strategic planning and coordination. Specialist technical providers would undertake implementation work under separately agreed scopes.",
+      },
+      {
+        question:
+          "Can this help after acquiring another practice?",
+        answer:
+          "Yes. An early assessment of systems, workflows, data and dependencies can inform a broader post-acquisition integration plan.",
+      },
+      {
+        question: "Will new technology automatically reduce costs?",
+        answer:
+          "No. Results depend on the business case, implementation quality, user adoption and ongoing operating requirements.",
+      },
     ],
     relatedServices: [
       "growth-strategy",
       "mergers-acquisitions",
-      "licensing-solutions"
+      "licensing-solutions",
     ],
-    seoTitle:
-      "Financial Advice Technology Integration | Purple Rock",
+    seoTitle: "Technology Integration for Financial Advice Practices",
     seoDescription:
-      "Strategic technology planning and integration support for Australian financial advice businesses."
-  }
+      "Commercial technology integration planning, systems reviews and post-acquisition operational strategy for Australian financial advice businesses.",
+  },
 ];
 
-export function getService(slug: string) {
+export function getService(slug: string): Service | undefined {
   return services.find((service) => service.slug === slug);
 }

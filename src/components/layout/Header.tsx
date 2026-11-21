@@ -1,160 +1,341 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import Container from "@/components/ui/Container";
-import { siteConfig } from "@/content/site";
+import { services } from "@/content/services";
 
 const navigation = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about/" },
-  { label: "Services", href: "/services/" },
-  { label: "Our Approach", href: "/our-approach/" },
-  { label: "Insights", href: "/insights/" },
-  { label: "Contact", href: "/contact/" },
+  { href: "/about/", label: "About" },
+  { href: "/our-approach/", label: "Our Approach" },
+  { href: "/insights/", label: "Insights" },
 ];
 
 export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [desktopServicesOpen, setDesktopServicesOpen] =
+    useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] =
+    useState(false);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const isServicesRoute = pathname.startsWith("/services");
+
   useEffect(() => {
-    // Close mobile navigation after changing routes.
-    // The client effect runs whenever the pathname changes.
-    // No manual event listener is required.
-    // 
-    // 
-    setMenuOpen(false);
+    setMobileOpen(false);
+    setDesktopServicesOpen(false);
+    setMobileServicesOpen(false);
   }, [pathname]);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+        setDesktopServicesOpen(false);
+        setMobileServicesOpen(false);
+      }
+    }
+
+    function handleOutsideClick(event: PointerEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDesktopServicesOpen(false);
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("pointerdown", handleOutsideClick);
 
     return () => {
-      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("pointerdown", handleOutsideClick);
     };
-  }, [menuOpen]);
+  }, []);
 
-  const isActive = (href: string) =>
-    href === "/"
-      ? pathname === "/"
-      : pathname === href.slice(0, -1) ||
-        pathname.startsWith(href);
+  function closeMobile() {
+    setMobileOpen(false);
+    setMobileServicesOpen(false);
+  }
+
+  function navLinkClass(href: string) {
+    const active = pathname === href;
+
+    return [
+      "text-sm font-medium transition-colors",
+      "hover:text-[#80549A]",
+      "focus-visible:outline-2",
+      "focus-visible:outline-offset-4",
+      "focus-visible:outline-[#80549A]",
+      active ? "text-[#80549A]" : "text-[#211D25]",
+    ].join(" ");
+  }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/10 bg-canvas/95 backdrop-blur-xl">
-      <Container>
-        <div className="flex h-20 items-center justify-between gap-8">
+    <header className="sticky top-0 z-50 border-b border-[#211D25]/10 bg-[#FAF8F5]/95 backdrop-blur-md">
+      <div className="mx-auto flex min-h-[84px] max-w-7xl items-center justify-between gap-6 px-6">
+        {/* Logo */}
+        <Link
+          href="/"
+          aria-label="Purple Rock Wealth Partners — Homepage"
+          onClick={closeMobile}
+          className="relative z-10 shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#80549A]"
+        >
+          <Image
+            src="/images/branding/logo-colour.png"
+            alt="Purple Rock Wealth Partners"
+            width={220}
+            height={75}
+            priority
+            className="h-auto w-[170px] object-contain sm:w-[195px] lg:w-[220px]"
+          />
+        </Link>
+
+        {/* Desktop navigation */}
+        <nav
+          aria-label="Primary navigation"
+          className="hidden items-center gap-7 lg:flex xl:gap-9"
+        >
           <Link
             href="/"
-            className="relative z-50 flex shrink-0 items-center"
-            aria-label="Purple Rock Wealth Partners home"
+            className={navLinkClass("/")}
+            aria-current={pathname === "/" ? "page" : undefined}
           >
-            <Image
-              src="/images/branding/logo-colour.png"
-              alt="Purple Rock Wealth Partners"
-              width={250}
-              height={100}
-              priority
-              className="h-auto w-40 object-contain md:w-48"
-            />
+            Home
           </Link>
 
-          <nav
-            aria-label="Main navigation"
-            className="hidden items-center gap-7 lg:flex"
-          >
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={
-                  isActive(item.href) ? "page" : undefined
-                }
-                className={`
-                  text-xs font-semibold uppercase
-                  tracking-[0.12em] transition-colors
-                  hover:text-brand-purple
-                  ${
-                    isActive(item.href)
-                      ? "text-brand-purple"
-                      : "text-ink"
-                  }
-                `}
+          {/* Services dropdown */}
+          <div className="relative" ref={dropdownRef}>
+            <button
+              type="button"
+              aria-expanded={desktopServicesOpen}
+              aria-controls="desktop-services-menu"
+              aria-haspopup="true"
+              onClick={() =>
+                setDesktopServicesOpen((previous) => !previous)
+              }
+              className={`flex items-center gap-2 text-sm font-medium transition-colors hover:text-[#80549A] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#80549A] ${
+                isServicesRoute
+                  ? "text-[#80549A]"
+                  : "text-[#211D25]"
+              }`}
+            >
+              Services
+
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                className={`size-4 transition-transform ${
+                  desktopServicesOpen ? "rotate-180" : ""
+                }`}
               >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+                <path
+                  d="m6 9 6 6 6-6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
 
-          <Link
-            href={siteConfig.primaryCTA.href}
-            className="hidden shrink-0 items-center gap-3 bg-brand-dark px-5 py-3 text-xs font-semibold text-white transition-colors hover:bg-brand-purple xl:inline-flex"
-          >
-            Let's Connect <span aria-hidden="true">↗</span>
-          </Link>
+            {desktopServicesOpen && (
+              <div
+                id="desktop-services-menu"
+                className="absolute left-1/2 top-full z-50 mt-6 w-[min(760px,calc(100vw-48px))] -translate-x-1/2 border border-[#211D25]/10 bg-white p-7 shadow-xl lg:left-auto lg:right-[-220px] lg:translate-x-0"
+              >
+                <div className="mb-5 flex items-center justify-between gap-4 border-b border-[#211D25]/10 pb-5">
+                  <span className="text-xs font-semibold uppercase tracking-[0.15em] text-[#80549A]">
+                    Strategic Expertise
+                  </span>
 
-          <button
-            type="button"
-            className="relative z-50 flex min-h-11 min-w-11 flex-col items-center justify-center gap-1.5 lg:hidden"
-            aria-label={
-              menuOpen ? "Close navigation" : "Open navigation"
-            }
-            aria-expanded={menuOpen}
-            aria-controls="mobile-navigation"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <span
-              className={`h-0.5 w-6 bg-ink transition-transform ${
-                menuOpen ? "translate-y-1 rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`h-0.5 w-6 bg-ink transition-transform ${
-                menuOpen ? "-translate-y-1 -rotate-45" : ""
-              }`}
-            />
-          </button>
-        </div>
-      </Container>
+                  <Link
+                    href="/services/"
+                    onClick={() =>
+                      setDesktopServicesOpen(false)
+                    }
+                    className="text-sm font-semibold text-[#39264B] underline underline-offset-4 hover:text-[#80549A]"
+                  >
+                    All Services
+                  </Link>
+                </div>
 
-      {menuOpen && (
+                <div className="grid grid-cols-2 gap-x-6 gap-y-1">
+                  {services.map((service) => (
+                    <Link
+                      key={service.slug}
+                      href={`/services/${service.slug}/`}
+                      onClick={() =>
+                        setDesktopServicesOpen(false)
+                      }
+                      className="px-3 py-3 text-sm font-medium text-[#211D25] transition-colors hover:bg-[#F4EFF7] hover:text-[#80549A] focus-visible:outline-2 focus-visible:outline-[#80549A]"
+                    >
+                      {service.shortTitle}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {navigation.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={navLinkClass(link.href)}
+              aria-current={
+                pathname === link.href ? "page" : undefined
+              }
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Desktop contact CTA */}
+        <Link
+          href="/contact/"
+          className="hidden min-h-11 shrink-0 items-center justify-center bg-[#39264B] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#80549A] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#80549A] lg:inline-flex"
+        >
+          Let's Connect
+          <span aria-hidden="true" className="ml-2">
+            ↗
+          </span>
+        </Link>
+
+        {/* Mobile menu button */}
+        <button
+          type="button"
+          className="relative z-10 inline-flex size-11 items-center justify-center border border-[#211D25]/20 text-[#211D25] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80549A] lg:hidden"
+          aria-label={
+            mobileOpen ? "Close navigation" : "Open navigation"
+          }
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMobileOpen((previous) => !previous)}
+        >
+          {mobileOpen ? (
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              className="size-6"
+            >
+              <path
+                d="M5 5 19 19M19 5 5 19"
+                strokeLinecap="round"
+              />
+            </svg>
+          ) : (
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              className="size-6"
+            >
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                strokeLinecap="round"
+              />
+            </svg>
+          )}
+        </button>
+      </div>
+
+      {/* Mobile navigation */}
+      {mobileOpen && (
         <nav
           id="mobile-navigation"
           aria-label="Mobile navigation"
-          className="fixed inset-x-0 top-20 bottom-0 z-40 overflow-y-auto bg-canvas lg:hidden"
-          style={{ height: "calc(100dvh - 5rem)" }}
+          className="max-h-[calc(100dvh-84px)] overflow-y-auto border-t border-[#211D25]/10 bg-[#FAF8F5] px-6 pb-8 pt-4 lg:hidden"
         >
-          <Container className="flex flex-col py-10">
-            {navigation.map((item, index) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={
-                  isActive(item.href) ? "page" : undefined
+          <div className="mx-auto flex max-w-7xl flex-col">
+            <Link
+              href="/"
+              onClick={closeMobile}
+              className="border-b border-[#211D25]/10 py-4 text-lg font-medium"
+            >
+              Home
+            </Link>
+
+            <div className="border-b border-[#211D25]/10">
+              <button
+                type="button"
+                aria-expanded={mobileServicesOpen}
+                aria-controls="mobile-services-list"
+                onClick={() =>
+                  setMobileServicesOpen((previous) => !previous)
                 }
-                onClick={() => setMenuOpen(false)}
-                className="border-b border-black/10 py-5 text-2xl font-semibold tracking-tight text-ink transition-colors hover:text-brand-purple"
+                className="flex w-full items-center justify-between py-4 text-left text-lg font-medium"
               >
-                <span className="mr-5 text-xs text-brand-purple">
-                  0{index + 1}
+                Services
+
+                <span
+                  aria-hidden="true"
+                  className="text-[#80549A]"
+                >
+                  {mobileServicesOpen ? "−" : "+"}
                 </span>
-                {item.label}
+              </button>
+
+              {mobileServicesOpen && (
+                <div
+                  id="mobile-services-list"
+                  className="flex flex-col gap-1 pb-4 pl-4"
+                >
+                  <Link
+                    href="/services/"
+                    onClick={closeMobile}
+                    className="py-2 text-sm font-semibold text-[#80549A]"
+                  >
+                    All Services
+                  </Link>
+
+                  {services.map((service) => (
+                    <Link
+                      key={service.slug}
+                      href={`/services/${service.slug}/`}
+                      onClick={closeMobile}
+                      className="py-2 text-sm text-[#211D25] hover:text-[#80549A]"
+                    >
+                      {service.shortTitle}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {navigation.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={closeMobile}
+                className="border-b border-[#211D25]/10 py-4 text-lg font-medium"
+              >
+                {link.label}
               </Link>
             ))}
 
             <Link
               href="/contact/"
-              onClick={() => setMenuOpen(false)}
-              className="mt-10 bg-brand-dark px-6 py-4 text-center font-semibold text-white"
+              onClick={closeMobile}
+              className="mt-6 inline-flex min-h-12 items-center justify-center bg-[#39264B] px-6 text-sm font-semibold text-white"
             >
-              Book a Consultation ↗
+              Let's Connect ↗
             </Link>
-          </Container>
+          </div>
         </nav>
       )}
     </header>
