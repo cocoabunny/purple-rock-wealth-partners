@@ -85,7 +85,7 @@ export default function Footer() {
               className="inline-block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D2B650]"
             >
               <Image
-                src="/images/branding/logo-horizontal-colour.png"
+                src="/images/branding/logo-colour.png"
                 alt="Purple Rock Wealth Partners"
                 width={240}
                 height={80}
