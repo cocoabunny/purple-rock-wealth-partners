@@ -1,14 +1,20 @@
 
 import type { MetadataRoute } from "next";
 
+const SITE_URL =
+  "https://purplerockwealthpartners.com";
+
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-    },
-    sitemap:
-      "https://purplerockwealthpartners.com/sitemap.xml",
-    host: "https://purplerockwealthpartners.com",
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+      },
+    ],
+
+    sitemap: `${SITE_URL}/sitemap.xml`,
+
+    host: SITE_URL,
   };
 }
