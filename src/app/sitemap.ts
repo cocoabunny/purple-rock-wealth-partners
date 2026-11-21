@@ -4,60 +4,34 @@ import type { MetadataRoute } from "next";
 import { services } from "@/content/services";
 import { insights } from "@/content/insights";
 
+export const dynamic = "force-static";
+
 const SITE_URL =
   "https://purplerockwealthpartners.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
-    {
-      path: "/",
-      priority: 1,
-      changeFrequency: "weekly" as const,
-    },
-    {
-      path: "/about/",
-      priority: 0.8,
-      changeFrequency: "monthly" as const,
-    },
-    {
-      path: "/services/",
-      priority: 0.9,
-      changeFrequency: "monthly" as const,
-    },
-    {
-      path: "/our-approach/",
-      priority: 0.8,
-      changeFrequency: "monthly" as const,
-    },
-    {
-      path: "/insights/",
-      priority: 0.8,
-      changeFrequency: "weekly" as const,
-    },
-    {
-      path: "/contact/",
-      priority: 0.7,
-      changeFrequency: "monthly" as const,
-    },
-    {
-      path: "/privacy-policy/",
-      priority: 0.3,
-      changeFrequency: "yearly" as const,
-    },
+    "/",
+    "/about/",
+    "/services/",
+    "/our-approach/",
+    "/insights/",
+    "/contact/",
+    "/privacy-policy/",
   ];
 
-  const pages: MetadataRoute.Sitemap =
+  const staticPages: MetadataRoute.Sitemap =
     staticRoutes.map((route) => ({
-      url: `${SITE_URL}${route.path}`,
-      changeFrequency: route.changeFrequency,
-      priority: route.priority,
+      url: `${SITE_URL}${route}`,
+      changeFrequency: "monthly",
+      priority: route === "/" ? 1 : 0.7,
     }));
 
   const servicePages: MetadataRoute.Sitemap =
     services.map((service) => ({
       url: `${SITE_URL}/services/${service.slug}/`,
       changeFrequency: "monthly",
-      priority: 0.85,
+      priority: 0.8,
     }));
 
   const insightPages: MetadataRoute.Sitemap =
@@ -67,11 +41,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
         `${insight.publishedAt}T00:00:00Z`
       ),
       changeFrequency: "monthly",
-      priority: 0.65,
+      priority: 0.6,
     }));
 
   return [
-    ...pages,
+    ...staticPages,
     ...servicePages,
     ...insightPages,
   ];

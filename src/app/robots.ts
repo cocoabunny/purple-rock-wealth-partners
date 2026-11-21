@@ -1,6 +1,8 @@
 
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-static";
+
 const SITE_URL =
   "https://purplerockwealthpartners.com";
 
@@ -12,9 +14,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-
     sitemap: `${SITE_URL}/sitemap.xml`,
-
     host: SITE_URL,
   };
 }

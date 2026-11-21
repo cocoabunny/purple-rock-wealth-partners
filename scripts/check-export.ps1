@@ -1,65 +1,76 @@
 
 # Purple Rock Wealth Partners
-# Static Export Validation
+# Static Export Validation Script
 
 $ErrorActionPreference = "Stop"
 
-$root = Split-Path -Parent $PSScriptRoot
-$out = Join-Path $root "out"
+# Find the project root directory.
+$ProjectRoot = Split-Path -Parent $PSScriptRoot
+$OutputDirectory = Join-Path $ProjectRoot "out"
 
-if (-not (Test-Path $out)) {
-    Write-Host "ERROR: out/ directory not found." -ForegroundColor Red
-    Write-Host "Run npm.cmd run build first."
+Write-Host ""
+Write-Host "PURPLE ROCK - STATIC EXPORT AUDIT" -ForegroundColor Cyan
+Write-Host "--------------------------------"
+
+# Check that the export folder exists.
+if (-not (Test-Path $OutputDirectory)) {
+    Write-Host "ERROR: The out directory was not found." -ForegroundColor Red
+    Write-Host "Run npm.cmd run build before running this script."
     exit 1
 }
 
-$routes = @(
-    "index.html"
-    "about/index.html"
-    "services/index.html"
-    "services/business-valuation/index.html"
-    "services/funding-capital/index.html"
-    "services/growth-strategy/index.html"
-    "services/licensing-solutions/index.html"
-    "services/mergers-acquisitions/index.html"
-    "services/strategic-partnerships/index.html"
-    "services/succession-planning/index.html"
-    "services/technology-integration/index.html"
-    "our-approach/index.html"
-    "insights/index.html"
-    "insights/financial-advice-business-succession-planning/index.html"
-    "insights/financial-advice-business-growth-strategy/index.html"
-    "contact/index.html"
-    "privacy-policy/index.html"
-    "sitemap.xml"
+# Expected exported website files.
+$Routes = @(
+    "index.html",
+    "about/index.html",
+    "services/index.html",
+    "services/business-valuation/index.html",
+    "services/funding-capital/index.html",
+    "services/growth-strategy/index.html",
+    "services/licensing-solutions/index.html",
+    "services/mergers-acquisitions/index.html",
+    "services/strategic-partnerships/index.html",
+    "services/succession-planning/index.html",
+    "services/technology-integration/index.html",
+    "our-approach/index.html",
+    "insights/index.html",
+    "insights/financial-advice-business-succession-planning/index.html",
+    "insights/financial-advice-business-growth-strategy/index.html",
+    "contact/index.html",
+    "privacy-policy/index.html",
+    "sitemap.xml",
     "robots.txt"
 )
 
-$passed = 0
-$failed = 0
+$Passed = 0
+$Failed = 0
 
-Write-Host ""
-Write-Host "PURPLE ROCK — STATIC EXPORT AUDIT" -ForegroundColor Cyan
-Write-Host "--------------------------------"
+# Check each expected file.
+foreach ($Route in $Routes) {
+    $RelativePath = $Route.Replace(
+        "/",
+        [System.IO.Path]::DirectorySeparatorChar
+    )
 
-foreach ($route in $routes) {
-    $relativePath = $route.Replace("/", [IO.Path]::DirectorySeparatorChar)
-    $fullPath = Join-Path $out $relativePath
+    $FullPath = Join-Path $OutputDirectory $RelativePath
 
-    if (Test-Path $fullPath) {
-        Write-Host "[PASS] $route" -ForegroundColor Green
-        $passed++
+    if (Test-Path -LiteralPath $FullPath -PathType Leaf) {
+        Write-Host "[PASS] $Route" -ForegroundColor Green
+        $Passed++
     }
     else {
-        Write-Host "[FAIL] $route" -ForegroundColor Red
-        $failed++
+        Write-Host "[FAIL] $Route" -ForegroundColor Red
+        $Failed++
     }
 }
 
 Write-Host ""
-Write-Host "Results: $passed passed, $failed failed"
+Write-Host "--------------------------------"
+Write-Host "Passed: $Passed"
+Write-Host "Failed: $Failed"
+Write-Host "--------------------------------"
 
-if ($failed -gt 0) {
+if ($Failed -gt 0) {
     Write-Host "Export validation FAILED." -ForegroundColor Red
     exit 1
 }
