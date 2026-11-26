@@ -4,6 +4,11 @@ import Link from "next/link";
 
 import { services } from "@/content/services";
 
+const LOGO_PATH = "/images/branding/logo-colour.png";
+
+const LINKEDIN_URL =
+  "https://au.linkedin.com/company/purplerock-wealth-partners";
+
 const mainNavigation = [
   { label: "Home", href: "/" },
   { label: "About Purple Rock", href: "/about/" },
@@ -13,16 +18,35 @@ const mainNavigation = [
   { label: "Contact", href: "/contact/" },
 ];
 
-const LOGO_PATH = "/images/branding/logo-colour.png";
+function LinkedInLink() {
+  return (
+    <a
+      href={LINKEDIN_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Purple Rock Wealth Partners on LinkedIn (opens in a new tab)"
+      title="Follow Purple Rock on LinkedIn"
+      className="inline-flex size-11 items-center justify-center rounded-md border border-white/25 text-white transition-colors hover:border-[#D2B650] hover:bg-[#D2B650] hover:text-[#39264B] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D2B650]"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        width="21"
+        height="21"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.35V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+      </svg>
+    </a>
+  );
+}
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="overflow-hidden bg-[#39264B] text-white">
-      {/* ====================================================
-          SECTION 01 — CONTACT CTA
-          ==================================================== */}
+      {/* SECTION 01 — CONTACT CTA */}
       <section className="bg-[#80549A] px-5 py-14 sm:px-8 md:py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2 lg:items-end lg:gap-16">
           <div>
@@ -56,12 +80,10 @@ export default function Footer() {
         </div>
       </section>
 
-      {/* ====================================================
-          SECTION 02 — BRAND & NAVIGATION
-          ==================================================== */}
+      {/* SECTION 02 — BRAND AND NAVIGATION */}
       <div className="px-5 py-12 sm:px-8 md:py-16 lg:py-20">
         <div className="mx-auto max-w-7xl">
-          {/* MOBILE BRAND INTRODUCTION */}
+          {/* MOBILE BRAND */}
           <div className="border-b border-white/20 pb-9 lg:hidden">
             <Link
               href="/"
@@ -85,9 +107,13 @@ export default function Footer() {
             <p className="mt-4 text-xs leading-6 text-white/60">
               Melbourne, Victoria · Australia-wide
             </p>
+
+            <div className="mt-6">
+              <LinkedInLink />
+            </div>
           </div>
 
-          {/* MOBILE ACCORDION NAVIGATION */}
+          {/* MOBILE NAVIGATION */}
           <nav
             aria-label="Mobile footer navigation"
             className="lg:hidden"
@@ -158,9 +184,7 @@ export default function Footer() {
             </Link>
           </div>
 
-          {/* =================================================
-              DESKTOP FOOTER GRID
-              ================================================= */}
+          {/* DESKTOP GRID */}
           <div className="hidden gap-12 lg:grid lg:grid-cols-12">
             {/* BRAND */}
             <div className="lg:col-span-4">
@@ -196,6 +220,11 @@ export default function Footer() {
                   Engaging with opportunities across Australia
                   and the wider Asia-Pacific region.
                 </p>
+              </div>
+
+              {/* SOCIAL LINK */}
+              <div className="mt-7">
+                <LinkedInLink />
               </div>
             </div>
 
@@ -267,9 +296,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ====================================================
-          SECTION 03 — COPYRIGHT & LEGAL
-          ==================================================== */}
+      {/* SECTION 03 — COPYRIGHT */}
       <div className="border-t border-white/15 bg-[#30203E] px-5 py-6 sm:px-8">
         <div className="mx-auto flex max-w-7xl flex-col items-start gap-5 text-xs text-white/70 md:flex-row md:items-center md:justify-between">
           <p>
