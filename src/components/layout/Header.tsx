@@ -8,6 +8,8 @@ import { usePathname } from "next/navigation";
 
 import { services } from "@/content/services";
 
+const LOGO_PATH = "/images/branding/logo-colour.png";
+
 const navigation = [
   { href: "/about/", label: "About" },
   { href: "/our-approach/", label: "Our Approach" },
@@ -18,26 +20,26 @@ export default function Header() {
   const pathname = usePathname();
 
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [desktopServicesOpen, setDesktopServicesOpen] =
-    useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] =
     useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const isServicesRoute = pathname.startsWith("/services");
+  const isServicesRoute =
+    pathname.startsWith("/services/");
 
   useEffect(() => {
     setMobileOpen(false);
-    setDesktopServicesOpen(false);
+    setServicesOpen(false);
     setMobileServicesOpen(false);
   }, [pathname]);
 
   useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
+    function handleEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setMobileOpen(false);
-        setDesktopServicesOpen(false);
+        setServicesOpen(false);
         setMobileServicesOpen(false);
       }
     }
@@ -47,16 +49,25 @@ export default function Header() {
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        setDesktopServicesOpen(false);
+        setServicesOpen(false);
       }
     }
 
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("pointerdown", handleOutsideClick);
+    document.addEventListener("keydown", handleEscape);
+    document.addEventListener(
+      "pointerdown",
+      handleOutsideClick
+    );
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("pointerdown", handleOutsideClick);
+      document.removeEventListener(
+        "keydown",
+        handleEscape
+      );
+      document.removeEventListener(
+        "pointerdown",
+        handleOutsideClick
+      );
     };
   }, []);
 
@@ -65,63 +76,81 @@ export default function Header() {
     setMobileServicesOpen(false);
   }
 
-  function navLinkClass(href: string) {
+  function navClass(href: string) {
     const active = pathname === href;
 
     return [
-      "text-sm font-medium transition-colors",
+      "whitespace-nowrap text-sm font-medium",
+      "transition-colors duration-200",
       "hover:text-[#80549A]",
       "focus-visible:outline-2",
       "focus-visible:outline-offset-4",
       "focus-visible:outline-[#80549A]",
-      active ? "text-[#80549A]" : "text-[#211D25]",
+      active
+        ? "text-[#80549A]"
+        : "text-[#211D25]",
     ].join(" ");
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#211D25]/10 bg-[#FAF8F5]/95 backdrop-blur-md">
-      <div className="mx-auto flex min-h-[84px] max-w-7xl items-center justify-between gap-6 px-6">
-        {/* Logo */}
+    <header className="sticky top-0 z-50 border-b border-[#39264B]/10 bg-[#FAF8F5]/95 backdrop-blur-md">
+      <div className="mx-auto flex min-h-[96px] max-w-[1440px] items-center justify-between gap-4 px-5 py-3 sm:px-8 lg:min-h-[106px] xl:px-10">
+
+        {/* BRAND */}
         <Link
           href="/"
-          aria-label="Purple Rock Wealth Partners — Homepage"
           onClick={closeMobile}
-          className="relative z-10 shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#80549A]"
+          aria-label="Purple Rock Wealth Partners — Home"
+          className="flex min-w-0 shrink-0 flex-col items-start focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#80549A]"
         >
-          <Image
-            src="/images/branding/logo-colour.png"
-            alt="Purple Rock Wealth Partners"
-            width={220}
-            height={75}
-            priority
-            className="h-auto w-[170px] object-contain sm:w-[195px] lg:w-[220px]"
-          />
+          {/* Cropped logo image */}
+          <div className="relative w-[210px] overflow-hidden sm:w-[265px] xl:w-[290px]">
+            <Image
+              src={LOGO_PATH}
+              alt="Purple Rock Wealth Partners"
+              width={420}
+              height={168}
+              priority
+              className="block h-auto w-full object-contain"
+              style={{
+                clipPath: "inset(0 0 15% 0)",
+                marginBottom: "-8%",
+              }}
+            />
+          </div>
+
+          {/* Readable tagline */}
+          <span className="mt-0.5 block text-[10px] font-bold uppercase leading-tight tracking-[0.12em] text-[#80549A] sm:text-[12px] xl:text-[14px]">
+            Rock Solid Connections.
+          </span>
         </Link>
 
-        {/* Desktop navigation */}
+        {/* DESKTOP NAVIGATION */}
         <nav
           aria-label="Primary navigation"
-          className="hidden items-center gap-7 lg:flex xl:gap-9"
+          className="hidden items-center gap-6 xl:flex 2xl:gap-9"
         >
           <Link
             href="/"
-            className={navLinkClass("/")}
-            aria-current={pathname === "/" ? "page" : undefined}
+            aria-current={
+              pathname === "/" ? "page" : undefined
+            }
+            className={navClass("/")}
           >
             Home
           </Link>
 
-          {/* Services dropdown */}
-          <div className="relative" ref={dropdownRef}>
+          {/* SERVICES DROPDOWN */}
+          <div ref={dropdownRef} className="relative">
             <button
               type="button"
-              aria-expanded={desktopServicesOpen}
+              aria-expanded={servicesOpen}
               aria-controls="desktop-services-menu"
               aria-haspopup="true"
               onClick={() =>
-                setDesktopServicesOpen((previous) => !previous)
+                setServicesOpen((previous) => !previous)
               }
-              className={`flex items-center gap-2 text-sm font-medium transition-colors hover:text-[#80549A] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#80549A] ${
+              className={`flex items-center gap-2 whitespace-nowrap text-sm font-medium transition-colors hover:text-[#80549A] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#80549A] ${
                 isServicesRoute
                   ? "text-[#80549A]"
                   : "text-[#211D25]"
@@ -136,7 +165,7 @@ export default function Header() {
                 stroke="currentColor"
                 strokeWidth="1.8"
                 className={`size-4 transition-transform ${
-                  desktopServicesOpen ? "rotate-180" : ""
+                  servicesOpen ? "rotate-180" : ""
                 }`}
               >
                 <path
@@ -147,35 +176,31 @@ export default function Header() {
               </svg>
             </button>
 
-            {desktopServicesOpen && (
+            {servicesOpen && (
               <div
                 id="desktop-services-menu"
-                className="absolute left-1/2 top-full z-50 mt-6 w-[min(760px,calc(100vw-48px))] -translate-x-1/2 border border-[#211D25]/10 bg-white p-7 shadow-xl lg:left-auto lg:right-[-220px] lg:translate-x-0"
+                className="absolute right-[-220px] top-full z-50 mt-6 w-[680px] border border-[#39264B]/10 bg-white p-7 shadow-xl"
               >
-                <div className="mb-5 flex items-center justify-between gap-4 border-b border-[#211D25]/10 pb-5">
-                  <span className="text-xs font-semibold uppercase tracking-[0.15em] text-[#80549A]">
-                    Strategic Expertise
+                <div className="mb-5 flex items-center justify-between border-b border-[#39264B]/10 pb-5">
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#80549A]">
+                    Our Expertise
                   </span>
 
                   <Link
                     href="/services/"
-                    onClick={() =>
-                      setDesktopServicesOpen(false)
-                    }
-                    className="text-sm font-semibold text-[#39264B] underline underline-offset-4 hover:text-[#80549A]"
+                    onClick={() => setServicesOpen(false)}
+                    className="text-sm font-semibold text-[#80549A] hover:underline"
                   >
-                    All Services
+                    All Services ↗
                   </Link>
                 </div>
 
-                <div className="grid grid-cols-2 gap-x-6 gap-y-1">
+                <div className="grid grid-cols-2 gap-x-5 gap-y-1">
                   {services.map((service) => (
                     <Link
                       key={service.slug}
                       href={`/services/${service.slug}/`}
-                      onClick={() =>
-                        setDesktopServicesOpen(false)
-                      }
+                      onClick={() => setServicesOpen(false)}
                       className="px-3 py-3 text-sm font-medium text-[#211D25] transition-colors hover:bg-[#F4EFF7] hover:text-[#80549A] focus-visible:outline-2 focus-visible:outline-[#80549A]"
                     >
                       {service.shortTitle}
@@ -190,37 +215,41 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className={navLinkClass(link.href)}
               aria-current={
-                pathname === link.href ? "page" : undefined
+                pathname === link.href
+                  ? "page"
+                  : undefined
               }
+              className={navClass(link.href)}
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        {/* Desktop contact CTA */}
+        {/* DESKTOP CONTACT CTA */}
         <Link
           href="/contact/"
-          className="hidden min-h-11 shrink-0 items-center justify-center bg-[#39264B] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#80549A] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#80549A] lg:inline-flex"
+          className="hidden min-h-12 shrink-0 items-center justify-center gap-3 bg-[#39264B] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#80549A] xl:inline-flex"
         >
           Let's Connect
-          <span aria-hidden="true" className="ml-2">
-            ↗
-          </span>
+          <span aria-hidden="true">↗</span>
         </Link>
 
-        {/* Mobile menu button */}
+        {/* MOBILE MENU BUTTON */}
         <button
           type="button"
-          className="relative z-10 inline-flex size-11 items-center justify-center border border-[#211D25]/20 text-[#211D25] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80549A] lg:hidden"
-          aria-label={
-            mobileOpen ? "Close navigation" : "Open navigation"
-          }
           aria-expanded={mobileOpen}
           aria-controls="mobile-navigation"
-          onClick={() => setMobileOpen((previous) => !previous)}
+          aria-label={
+            mobileOpen
+              ? "Close navigation"
+              : "Open navigation"
+          }
+          onClick={() =>
+            setMobileOpen((previous) => !previous)
+          }
+          className="flex size-11 shrink-0 items-center justify-center border border-[#39264B]/20 text-[#39264B] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80549A] xl:hidden"
         >
           {mobileOpen ? (
             <svg
@@ -254,37 +283,40 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile navigation */}
+      {/* MOBILE NAVIGATION */}
       {mobileOpen && (
         <nav
           id="mobile-navigation"
           aria-label="Mobile navigation"
-          className="max-h-[calc(100dvh-84px)] overflow-y-auto border-t border-[#211D25]/10 bg-[#FAF8F5] px-6 pb-8 pt-4 lg:hidden"
+          className="max-h-[calc(100dvh-96px)] overflow-y-auto border-t border-[#39264B]/10 bg-[#FAF8F5] px-5 py-5 xl:hidden"
         >
           <div className="mx-auto flex max-w-7xl flex-col">
             <Link
               href="/"
               onClick={closeMobile}
-              className="border-b border-[#211D25]/10 py-4 text-lg font-medium"
+              className="border-b border-[#39264B]/10 py-4 text-base font-medium"
             >
               Home
             </Link>
 
-            <div className="border-b border-[#211D25]/10">
+            {/* MOBILE SERVICES */}
+            <div className="border-b border-[#39264B]/10">
               <button
                 type="button"
                 aria-expanded={mobileServicesOpen}
                 aria-controls="mobile-services-list"
                 onClick={() =>
-                  setMobileServicesOpen((previous) => !previous)
+                  setMobileServicesOpen(
+                    (previous) => !previous
+                  )
                 }
-                className="flex w-full items-center justify-between py-4 text-left text-lg font-medium"
+                className="flex w-full items-center justify-between py-4 text-left text-base font-medium"
               >
                 Services
 
                 <span
                   aria-hidden="true"
-                  className="text-[#80549A]"
+                  className="text-xl text-[#80549A]"
                 >
                   {mobileServicesOpen ? "−" : "+"}
                 </span>
@@ -300,7 +332,7 @@ export default function Header() {
                     onClick={closeMobile}
                     className="py-2 text-sm font-semibold text-[#80549A]"
                   >
-                    All Services
+                    View All Services
                   </Link>
 
                   {services.map((service) => (
@@ -308,7 +340,7 @@ export default function Header() {
                       key={service.slug}
                       href={`/services/${service.slug}/`}
                       onClick={closeMobile}
-                      className="py-2 text-sm text-[#211D25] hover:text-[#80549A]"
+                      className="py-2 text-sm text-[#39264B] hover:text-[#80549A]"
                     >
                       {service.shortTitle}
                     </Link>
@@ -322,7 +354,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={closeMobile}
-                className="border-b border-[#211D25]/10 py-4 text-lg font-medium"
+                className="border-b border-[#39264B]/10 py-4 text-base font-medium"
               >
                 {link.label}
               </Link>
@@ -331,9 +363,10 @@ export default function Header() {
             <Link
               href="/contact/"
               onClick={closeMobile}
-              className="mt-6 inline-flex min-h-12 items-center justify-center bg-[#39264B] px-6 text-sm font-semibold text-white"
+              className="mt-6 flex min-h-12 items-center justify-center gap-3 bg-[#39264B] px-6 py-3 text-sm font-semibold text-white"
             >
-              Let's Connect ↗
+              Let's Connect
+              <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </nav>
